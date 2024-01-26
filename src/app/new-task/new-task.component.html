@@ -1,0 +1,83 @@
+<app-cabecera></app-cabecera>
+<table>
+
+    <tr>
+      <th>Description</th>
+      <input [(ngModel)]="task.description" type="text">
+    </tr>
+    <tr>
+      <th>Difficulty</th>
+      <select    [(ngModel)]="task.difficulty">
+        @for (dificultad of dificultades; track dificultad.valor) {
+            @if(dificultad.valor==task.difficulty){
+
+                <option selected value="{{dificultad.valor}}">{{dificultad.valor}}</option>
+            }@else {
+                <option  value="{{dificultad.valor}}">{{dificultad.valor}}</option>
+            }
+
+        } 
+        
+
+    </select>   
+
+    </tr>
+
+    <tr>
+        <th>Time_estimated</th>
+        <td><input min="1" max="100" [(ngModel)]="task.time_estimated" type="number"></td>
+      </tr>
+
+
+      <tr>
+        <th>Time_dedicated</th>
+        <td><input min="0" max="100" [(ngModel)]="task.time_dedicated" type="number"></td>
+    
+      </tr>
+    <tr>
+      <th>Progress</th>
+      <td><input min="0" max="100" [(ngModel)]="task.progress" type="number"></td>
+    
+    </tr>
+
+
+    <tr>
+      <th>Done</th>
+    
+      <td>
+        <select  [(ngModel)]="task.done"  name="" id="">
+            @if (task.done==true) {
+                <option value="true" selected >true</option>
+                <option value="false" >False</option>
+            }@else {
+                <option value="true" >True</option>
+                <option value="false" selected >False</option>
+            }
+
+        </select>    
+    </td>
+      
+    </tr>
+    <tr>
+      <th>Assignment</th>
+      <select [(ngModel)]="task.assignment">
+        @if(task.assignment==null){
+          <option value="null" selected>Sin Asingar</option>
+            @for (user of users; track user.id) {
+              <option value="{{user.id}}">{{user.id+' .'+user.first_name+' '+user.last_name}}</option>
+            }
+      }@else{
+          @for (user of users; track user.id) {
+
+              @if (user.id==task.assignment) {
+                  <option selected value="{{user.id}}">{{user.id+' .'+user.first_name+' '+user.last_name}}</option>
+              }@else {
+                  <option value="{{user.id}}">{{user.id+' .'+user.first_name+' '+user.last_name}}</option>
+
+              }
+            } 
+      }
+  </select>
+    </tr>
+  </table>
+  <button (click)="nuevaTarea()">Crear tarea</button>

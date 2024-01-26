@@ -1,0 +1,28 @@
+<app-cabecera></app-cabecera>
+<table>
+<th>id</th>
+<th>description</th>
+<th>difficulty</th>
+<th>progress</th>
+<th>done</th>
+<th>assignment</th>
+    @for (task of tasklist; track task.id) {
+        
+        <tr>
+            <a routerLink="task/{{task.id}}">
+                <td>{{task.id}}</td>
+            </a>
+                
+                <td>{{task.description}}</td>
+                <td>{{task.difficulty}}</td>
+                <td>{{task.progress}}</td>
+                <td>{{task.done}}</td>
+                
+                @if (task.assignment==null) {
+                    <td>Sin asignar</td>
+                }@else {
+                    <td>{{task.assignment}}</td>
+                }
+        </tr>
+    }
+</table>
