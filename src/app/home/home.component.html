@@ -1,4 +1,12 @@
 <app-cabecera></app-cabecera>
+<br>
+<select (change)="evaluarTabla()" [(ngModel)]="tipoTabla" id="">
+<option  value="0" selected>Todas</option>
+<option  value="1" >Realizadas</option>
+<option  value="2" selected>Sin realizar</option>
+</select>
+<br>
+<br>
 <table>
 <th>id</th>
 <th>description</th>

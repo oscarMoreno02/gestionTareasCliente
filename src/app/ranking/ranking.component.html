@@ -1,0 +1,17 @@
+<app-cabecera></app-cabecera>
+<table>
+<th>id</th>
+<th>first_name</th>
+<th>last_name</th>
+<th>email</th>
+<th>tasks_completed</th>
+    @for (position of ranking.ranking; track position.id) {
+        <tr>
+            <td>{{position.id}}</td>
+            <td>{{position.first_name}}</td>
+            <td>{{position.last_name}}</td>
+            <td>{{position.email}}</td>
+            <td>{{position.tasks_completed}}</td>
+        </tr>
+        }
+</table>

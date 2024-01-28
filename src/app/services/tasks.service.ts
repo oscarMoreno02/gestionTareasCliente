@@ -72,6 +72,31 @@ export class TasksService  implements OnInit{
      )
    }
 
+   getAllTaskDone(): Observable<any | undefined> {
+    let t=this.getToken()
+  
+    const headers = new HttpHeaders({
+      'x-token' : this.getToken().toString(),
+    });
+    return this.http.get<any>(this.baseUrl+'/completed',{headers}).pipe(
+      catchError((error) =>{
+        return of(undefined)
+      })
+    )
+  }
+  getAllTaskUndone(): Observable<any | undefined> {
+    let t=this.getToken()
+  
+    const headers = new HttpHeaders({
+      'x-token' : this.getToken().toString(),
+    });
+    return this.http.get<any>(this.baseUrl+'/uncompleted',{headers}).pipe(
+      catchError((error) =>{
+        return of(undefined)
+      })
+    )
+  }
+
   getToken(): string {
     const serializedObj = sessionStorage.getItem('token');
     if (serializedObj) {

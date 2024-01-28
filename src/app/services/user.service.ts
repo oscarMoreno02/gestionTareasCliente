@@ -38,6 +38,18 @@ export class UserService implements OnInit {
       })
     )
   }
+  getRanking(): Observable<any | undefined> {
+    let t=this.getToken()
+  
+    const headers = new HttpHeaders({
+      'x-token' : this.getToken().toString(),
+    });
+    return this.http.get<any>(this.baseUrl+'/task/ranking',{headers}).pipe(
+      catchError((error) =>{
+        return of(undefined)
+      })
+    )
+  }
 
 
   getToken(): string {

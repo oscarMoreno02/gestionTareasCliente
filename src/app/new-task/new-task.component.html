@@ -62,7 +62,7 @@
       <th>Assignment</th>
       <select [(ngModel)]="task.assignment">
         @if(task.assignment==null){
-          <option value="null" selected>Sin Asingar</option>
+          <option value="null" selected>Sin Asignar</option>
             @for (user of users; track user.id) {
               <option value="{{user.id}}">{{user.id+' .'+user.first_name+' '+user.last_name}}</option>
             }
