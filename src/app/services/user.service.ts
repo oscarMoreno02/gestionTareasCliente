@@ -50,6 +50,18 @@ export class UserService implements OnInit {
       })
     )
   }
+  getUserTask(id:number): Observable<any | undefined> {
+    let t=this.getToken()
+  
+    const headers = new HttpHeaders({
+      'x-token' : this.getToken().toString(),
+    });
+    return this.http.get<any>(this.baseUrl+'/task/'+id,{headers}).pipe(
+      catchError((error) =>{
+        return of(undefined)
+      })
+    )
+  }
 
 
   getToken(): string {

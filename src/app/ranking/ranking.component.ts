@@ -16,7 +16,6 @@ import { Ranking, RankingElement } from '../interfaces/ranking';
   styleUrl: './ranking.component.css'
 })
 export class RankingComponent  implements OnInit{
-
   constructor(private userService: UserService, private router: Router) { }
   ranking: Ranking = {ranking:[{id:0,first_name:'',last_name:'',email:'',tasks_completed:0}]};
   list:Array<RankingElement>=[]

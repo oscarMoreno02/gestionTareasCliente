@@ -1,0 +1,79 @@
+<app-cabecera></app-cabecera>
+<select (change)="refrescar()" [(ngModel)]="idUsuario">
+    <option selected value="0">-Seleccionar-</option>
+
+    @for (user of userList; track user.id) {
+        <option value="{{user.id}}">{{user.id+' .'+user.first_name+' '+user.last_name}}</option>
+    }
+
+</select>
+@if(idUsuario!=0){
+    <h2>User</h2>
+    <table>
+        <thead>
+            <th>first_name</th>
+            <th>last_name</th>
+            <th>email</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{usertask.first_name}}
+                </td>
+                <td>
+                    {{usertask.last_name}}
+                </td>
+                <td>
+                    {{usertask.email}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+        @if(usertask.tasks.length>0){
+            <h2>Tasks</h2>
+    <table>
+
+
+        <thead>
+            <th>id</th>
+            <th>description</th>
+            <th>difficulty</th>
+            <th>time_dedicated</th>
+            <th>time_estimated</th>
+            <th>done</th>
+        </thead>
+        
+       
+
+            <tbody>
+                @for (task of usertask.tasks; track task.id) {
+                    <tr>
+                        <td>
+                        {{task.id}}
+                    </td>
+                    <td>
+                        {{task.description}}
+                    </td>
+                    <td>
+                        {{task.difficulty}}
+                    </td>
+                    <td>
+                        {{task.time_estimated}}
+                    </td>
+                    <td>
+                        {{task.time_dedicated}}
+                    </td>
+                    <td>
+                        {{task.done}}
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}@else {
+    <h4>Sin tareas asignadas</h4>
+}
+
+}@else {
+    <h3>Selecciona un programador</h3>
+}

@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { RankingComponent } from './ranking/ranking.component';
+import { UserTaskComponent } from './user-task/user-task.component';
 
 export const routes: Routes = [
     {path: '', pathMatch: 'full', redirectTo: '/login'},
@@ -13,4 +14,5 @@ export const routes: Routes = [
     {path: 'home/task/:id', component: TasksComponent},
     {path: 'new/task', component: NewTaskComponent},
     {path: 'ranking', component: RankingComponent},
+    {path: 'user/task', component: UserTaskComponent},
 ]
