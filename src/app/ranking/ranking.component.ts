@@ -3,7 +3,7 @@ import { CabeceraComponent } from '../cabecera/cabecera.component';
 import { Router, RouterLink } from '@angular/router';
 
 import {Subscription } from 'rxjs';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { Ranking, RankingElement } from '../interfaces/ranking';
@@ -22,14 +22,21 @@ export class RankingComponent  implements OnInit{
   subscription: Subscription=new Subscription;
 
 ngOnInit(): void {
-  this.subscription = this.userService.getRanking().subscribe({
-    next: (data: any) => {
 
-      this.ranking.ranking=data.ranking[0];
+
+    this.subscription = this.userService.getRanking().subscribe({
+      next: (data: any ) => {
+      if(data){
+        this.ranking.ranking=data.ranking[0];
+      }
+      
     },
-    error: (err) => {
-      console.log(err);
-    }
+    error: (err:HttpErrorResponse) => {
+    console.log(err.status)
+    
+    },
   });
 }
+
 }
+

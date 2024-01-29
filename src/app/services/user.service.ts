@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { Observable, catchError, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import {jwtDecode} from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +16,8 @@ export class UserService implements OnInit {
   }
   getAllUser(): Observable<any | undefined> {
     let t=this.getToken()
-  
+
+   
     const headers = new HttpHeaders({
       'x-token' : this.getToken().toString(),
     });
@@ -46,7 +47,8 @@ export class UserService implements OnInit {
     });
     return this.http.get<any>(this.baseUrl+'/task/ranking',{headers}).pipe(
       catchError((error) =>{
-        return of(undefined)
+        console.log(error.status)
+        return of (error)
       })
     )
   }
