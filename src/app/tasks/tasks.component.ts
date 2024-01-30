@@ -98,7 +98,7 @@ export class TasksComponent implements OnInit {
     }
   }
   guardarDatos=()=>{
-  let valido= this.validar()
+  let valido= this.taskService.validar(this.task)
    if( valido){
     if(this.roles.includes('admin')){
       this.message.add({ severity: 'info', summary: 'Actualizacion', detail: 'En curso', life: 3000 });
@@ -153,20 +153,7 @@ export class TasksComponent implements OnInit {
       this.task.done = false;
     }
   }
-  validar(): boolean {
-    let validaciones = []; 
-    if (this.task.progress < 0 || this.task.progress > 100 || !Number.isInteger(this.task.progress)) {
-        validaciones.push(false); 
-    }
-    if (this.task.time_dedicated < 0 || this.task.time_dedicated > 100 || !Number.isInteger(this.task.time_dedicated)) {
-        validaciones.push(false);
-    }
-    if (validaciones.includes(false)) {
-        return false; 
-    } else {
-        return true; 
-    }
-}
+
 actualizar(evento: boolean) {
   if (evento) {
     this.guardarDatos()

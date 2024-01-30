@@ -108,5 +108,21 @@ export class TasksService  implements OnInit{
     }
     return this.token;
   }
-  
+  validar(task:Task): boolean {
+    let validaciones = []; 
+    if(task.description.trim().length==0){
+      validaciones.push(false)
+    }
+    if (task.progress < 0 ||task.progress > 100 || !Number.isInteger(task.progress)) {
+        validaciones.push(false); 
+    }
+    if (task.time_dedicated < 0 || task.time_dedicated > 100 || !Number.isInteger(task.time_dedicated)) {
+        validaciones.push(false);
+    }
+    if (validaciones.includes(false)) {
+        return false; 
+    } else {
+        return true; 
+    }
+}
 }

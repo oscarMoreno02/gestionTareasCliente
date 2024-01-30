@@ -57,7 +57,7 @@ ngOnInit(): void {
   })
 }
 nuevaTarea=()=>{
-  let valido= this.validar()
+  let valido= this.taskService.validar(this.task)
   if( valido){
 
     this.message.add({ severity: 'info', summary: 'Creación', detail: 'En curso', life: 3000 });
@@ -88,18 +88,5 @@ crear(evento: Boolean){
     this.message.add({ severity: 'info', summary: 'Creacion', detail: 'Cancelada', life: 3000 });
   }
 }
-validar(): boolean {
-  let validaciones = []; 
-  if(this.task.description.trim().length==0){
-    validaciones.push(false)
-  }
-  if (this.task.time_estimated <= 0 || this.task.time_estimated > 100 || !Number.isInteger(this.task.time_estimated)) {
-      validaciones.push(false);
-  }
-  if (validaciones.includes(false)) {
-      return false; 
-  } else {
-      return true; 
-  }
-}
+
 }
