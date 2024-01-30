@@ -50,6 +50,17 @@ export class TasksService  implements OnInit{
       })
     )
   }
+  updateTaskByUser(task:Task): Observable<any | undefined> {
+    let body={task:task}
+     const headers = new HttpHeaders({
+       'x-token' : this.getToken().toString(),
+     });
+     return this.http.put<any>(environment.baseUrl+'/user/task/full/'+task.id,task,{headers}).pipe(
+       catchError((error) =>{
+         return of(undefined)
+       })
+     )
+   }
   insertTask(task:Task): Observable<any | undefined> {
     let body={task:task}
      const headers = new HttpHeaders({

@@ -3,7 +3,7 @@
   @if(roles.includes('admin')){
     <a href="/new/task">Crear tarea</a>
     <a href="/ranking">Ranking</a>
-    <a href="/user/task">Programadores</a>
+    <a id="exit" href="/user/task">Programadores</a>
   }
-  <a href="/login">Cerrar sesion</a>
+  <a (click)="logout()" (mouseover)="nombre='exit'" (mouseout)="nombre=nombreaux">{{nombre}}</a>
   </div>

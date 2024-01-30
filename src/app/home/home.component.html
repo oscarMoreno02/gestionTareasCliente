@@ -13,9 +13,12 @@
 <th>difficulty</th>
 <th>progress</th>
 <th>done</th>
-<th>assignment</th>
-    @for (task of tasklist; track task.id) {
-        
+@if(roles.includes('admin')){
+    <th>assignment</th>
+}
+    @if(roles.includes('admin')){
+
+        @for (task of tasklist; track task.id) {
         <tr>
             <a routerLink="task/{{task.id}}">
                 <td>{{task.id}}</td>
@@ -30,6 +33,21 @@
                 }@else {
                     <td>{{task.assignment}}</td>
                 }
-        </tr>
+            </tr>
+        }
+    }@else{
+        @for (task of tasklist; track task.id) {
+            @if (task.assignment==uid) {
+                <tr>
+                    <a routerLink="task/{{task.id}}">
+                        <td>{{task.id}}</td>
+                    </a>
+                    <td>{{task.description}}</td>
+                    <td>{{task.difficulty}}</td>
+                    <td>{{task.progress}}</td>
+                    <td>{{task.done}}</td>
+            </tr>
+        }
+        }
     }
 </table>

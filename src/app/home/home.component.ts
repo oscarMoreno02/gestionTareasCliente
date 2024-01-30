@@ -6,6 +6,7 @@ import { TasksService } from '../services/tasks.service';
 import {Subscription } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -20,15 +21,21 @@ export class HomeComponent implements OnInit {
   tasklist: any[] = [];
   tipoTabla=0
   taskSubscription: Subscription=new Subscription;
+  roles=['']
+  uid=0
+  contador=0
 
-  constructor(private taskService: TasksService, private router: Router) { }
-
+  constructor(private taskService: TasksService, private router: Router,private authservice:AuthService) { }
+  
   ngOnInit(): void {
 
+
+    this.uid=this.authservice.getUid()
+    this.roles=this.authservice.getRoles()
     this.taskSubscription = this.taskService.getAllTask().subscribe({
       next: (data: any) => {
-      
-        this.tasklist=data.data;
+        
+        this.tasklist=this.filtrar(data.data);
         console.log(this.tasklist)
       },
       error: (err) => {
@@ -39,7 +46,19 @@ export class HomeComponent implements OnInit {
     console.log(this.tasklist)
 
 }
-
+filtrar(data:any):any{
+  if(this.roles.includes('admin')){
+    return data
+  }else{
+    let lista=[]
+    for(let i=0;i<data.length;i++){
+      if(data[i].assignment==this.uid){
+        lista.push(data[i])
+      }
+    }
+    return lista
+  }
+}
 evaluarTabla=()=>{
   console.log('llega')
 if(this.tipoTabla==0){

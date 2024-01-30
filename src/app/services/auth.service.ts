@@ -37,5 +37,11 @@ export class AuthService {
   getRoles(){
       return this.abilities
   }
-
+  getUid(){
+    return this.payload.uid
+  }
+  getName(){
+    console.log(this.payload.uname)
+    return this.payload.uname
+  }
 }

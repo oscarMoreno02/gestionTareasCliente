@@ -6,22 +6,32 @@
     </tr>
     <tr>
       <th>Description</th>
-      <input [(ngModel)]="task.description" type="text">
+      @if(roles.includes('admin')){
+
+        <input [(ngModel)]="task.description" type="text">
+      }@else {
+        {{task.description}}
+      }
     </tr>
     <tr>
       <th>Difficulty</th>
-      <select  [(ngModel)]="task.difficulty">
-        @for (dificultad of dificultades; track dificultad.valor) {
+      @if(roles.includes('admin')){
+
+        <select  [(ngModel)]="task.difficulty">
+          @for (dificultad of dificultades; track dificultad.valor) {
             
             @if(dificultad.valor==task.difficulty){
-                <option selected value="{{dificultad.valor}}">{{dificultad.valor}}</option>
+              <option selected value="{{dificultad.valor}}">{{dificultad.valor}}</option>
             }
             @else{
-                <option value="{{dificultad.valor}}">{{dificultad.valor}}</option>
+              <option value="{{dificultad.valor}}">{{dificultad.valor}}</option>
             }
-        }
-        
-    </select>
+          }
+          
+        </select>
+      }@else {
+        {{task.difficulty}}
+      }
 
     </tr>
 
@@ -40,7 +50,9 @@
       </tr>
     <tr>
       <th>Progress</th>
-      <td><input [(ngModel)]="task.progress" type="number"></td>
+    
+      
+      <td><input (input)="checkDone()" max="100" [(ngModel)]="task.progress" type="number"></td>
     
     </tr>
 
@@ -48,22 +60,27 @@
     <tr>
       <th>Done</th>
     <td>
+      @if(roles.includes('admin')){
         <select  [(ngModel)]="task.done"  name="" id="">
-            @if (task.done==true) {
-                <option value="true" selected >true</option>
-                <option value="false" >False</option>
-            }@else {
-                <option value="true" >True</option>
-                <option value="false" selected >False</option>
-            }
-
+          @if (task.done==true) {
+            <option value="true" selected >true</option>
+            <option value="false" >False</option>
+          }@else {
+            <option value="true" >completed</option>
+            <option value="false" selected >uncompleted</option>
+          }
+          
         </select>    
+      }@else {
+          {{task.done}}
+      }
     </td>
       
     </tr>
+    @if(roles.includes('admin')){
     <tr>
-      <th>Assignment</th>
-      <select [(ngModel)]="task.assignment">
+        <th>Assignment</th>
+        <select [(ngModel)]="task.assignment">
           @if(task.assignment==null){
             <option value="null" selected>Sin Asingar</option>
               @for (user of users; track user.id) {
@@ -80,8 +97,12 @@
                 }
               } 
         }
-    </select>
+      </select>
     </tr>
+  }
   </table>
   <button (click)="guardarDatos()">Guardar</button>
-  <button style="background-color: red;" (click)="borrarTarea()">Borrar</button>
+  @if(roles.includes('admin')){
+
+    <button style="background-color: red;" (click)="borrarTarea()">Borrar</button>
+  }
