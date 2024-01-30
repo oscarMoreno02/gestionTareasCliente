@@ -6,17 +6,24 @@ import { UserService } from '../services/user.service';
 import { FormsModule } from '@angular/forms';
 import { Task } from '../interfaces/task';
 import { User } from '../interfaces/user';
+import { ConfirmComponent } from '../confirm/confirm.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 
 @Component({
   selector: 'app-new-task',
   standalone: true,
-  imports: [CabeceraComponent,FormsModule],
+  imports: [CabeceraComponent,FormsModule, ConfirmComponent, ToastModule],
   templateUrl: './new-task.component.html',
-  styleUrl: './new-task.component.css'
+  styleUrl: './new-task.component.css',
+  providers:[MessageService]
 })
 export class NewTaskComponent implements OnInit {
-constructor(private router : Router,private rutaActiva: ActivatedRoute, private taskService:TasksService,private userService:UserService ){}
+constructor(private router : Router,private rutaActiva: ActivatedRoute, private taskService:TasksService,private userService:UserService,
+  private message:MessageService,
+
+  ){}
 dificultades=[
   {valor:'s'},
   {valor:'m'},
@@ -50,15 +57,49 @@ ngOnInit(): void {
   })
 }
 nuevaTarea=()=>{
-  this.taskService.insertTask(this.task).subscribe({
+  let valido= this.validar()
+  if( valido){
+
+    this.message.add({ severity: 'info', summary: 'Creación', detail: 'En curso', life: 3000 });
+    this.taskService.insertTask(this.task).subscribe({
     next: (u:any) => {
       console.log(u)
-      this.router.navigate(['/home'])
+          setTimeout(() => {
+            this.message.add({ severity: 'success', summary: 'Creación', detail: 'Completada', life: 3000 });
+            setTimeout(() => {
+              this.router.navigate(['/home'])
+          }, 1000); 
+        }, 2000); 
+      
     },
     error: (err) => {
       console.log(err)
+      this.message.add({ severity:'error', summary: 'Creación', detail: 'Cancelada', life: 3000 });
     }
   })
+}else{
+  this.message.add({ severity: 'warn', summary: 'Creación', detail: 'Valores introducidos no validos', life: 3000 });
 }
-
+}
+crear(evento: Boolean){
+  if (evento) {
+    this.nuevaTarea()
+  } else {
+    this.message.add({ severity: 'info', summary: 'Creacion', detail: 'Cancelada', life: 3000 });
+  }
+}
+validar(): boolean {
+  let validaciones = []; 
+  if(this.task.description.trim().length==0){
+    validaciones.push(false)
+  }
+  if (this.task.time_estimated <= 0 || this.task.time_estimated > 100 || !Number.isInteger(this.task.time_estimated)) {
+      validaciones.push(false);
+  }
+  if (validaciones.includes(false)) {
+      return false; 
+  } else {
+      return true; 
+  }
+}
 }

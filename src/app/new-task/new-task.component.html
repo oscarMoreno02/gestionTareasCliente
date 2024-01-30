@@ -1,6 +1,6 @@
 <app-cabecera></app-cabecera>
 <table>
-
+<p-toast></p-toast>
     <tr>
       <th>Description</th>
       <input [(ngModel)]="task.description" type="text">
@@ -27,37 +27,8 @@
         <th>Time_estimated</th>
         <td><input min="1" max="100" [(ngModel)]="task.time_estimated" type="number"></td>
       </tr>
-
-
-      <tr>
-        <th>Time_dedicated</th>
-        <td><input min="0" max="100" [(ngModel)]="task.time_dedicated" type="number"></td>
-    
-      </tr>
-    <tr>
-      <th>Progress</th>
-      <td><input min="0" max="100" [(ngModel)]="task.progress" type="number"></td>
-    
-    </tr>
-
-
-    <tr>
-      <th>Done</th>
-    
-      <td>
-        <select  [(ngModel)]="task.done"  name="" id="">
-            @if (task.done==true) {
-                <option value="true" selected >true</option>
-                <option value="false" >False</option>
-            }@else {
-                <option value="true" >True</option>
-                <option value="false" selected >False</option>
-            }
-
-        </select>    
-    </td>
       
-    </tr>
+
     <tr>
       <th>Assignment</th>
       <select [(ngModel)]="task.assignment">
@@ -80,4 +51,4 @@
   </select>
     </tr>
   </table>
-  <button (click)="nuevaTarea()">Crear tarea</button>
+  <app-confirm tipo="Crear" mensaje="" color="success" (confirmacion)="crear($event)"></app-confirm>

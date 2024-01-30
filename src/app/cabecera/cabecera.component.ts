@@ -25,7 +25,7 @@ export class CabeceraComponent implements OnInit {
   }
   logout(){
     sessionStorage.removeItem('token')
-    this.router.navigate([''])
+    window.location.href=''
   }
 
 }

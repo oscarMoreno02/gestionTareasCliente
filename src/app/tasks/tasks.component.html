@@ -1,4 +1,5 @@
 <app-cabecera></app-cabecera>
+<p-toast></p-toast>
 <table>
     <tr>
       <th>ID</th>
@@ -51,8 +52,8 @@
     <tr>
       <th>Progress</th>
     
-      
-      <td><input (input)="checkDone()" max="100" [(ngModel)]="task.progress" type="number"></td>
+      <app-slider [(realizado)]="task.done"  [(numero)]="task.progress" [numero]="task.progress"></app-slider>
+   
     
     </tr>
 
@@ -63,8 +64,8 @@
       @if(roles.includes('admin')){
         <select  [(ngModel)]="task.done"  name="" id="">
           @if (task.done==true) {
-            <option value="true" selected >true</option>
-            <option value="false" >False</option>
+            <option value="true" selected >completed</option>
+            <option value="false" >uncompleted</option>
           }@else {
             <option value="true" >completed</option>
             <option value="false" selected >uncompleted</option>
@@ -101,8 +102,7 @@
     </tr>
   }
   </table>
-  <button (click)="guardarDatos()">Guardar</button>
   @if(roles.includes('admin')){
-
-    <button style="background-color: red;" (click)="borrarTarea()">Borrar</button>
+    <app-confirm tipo="Borrar" elemento="tarea" color="danger" (confirmacion)="borrar($event)"></app-confirm>
   }
+<app-confirm tipo="Guardar"  elemento="tarea" color="success" (confirmacion)="actualizar($event)"></app-confirm>

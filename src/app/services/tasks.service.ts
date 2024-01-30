@@ -45,9 +45,7 @@ export class TasksService  implements OnInit{
       'x-token' : this.getToken().toString(),
     });
     return this.http.put<any>(this.baseUrl+'/full/'+task.id,task,{headers}).pipe(
-      catchError((error) =>{
-        return of(undefined)
-      })
+    
     )
   }
   updateTaskByUser(task:Task): Observable<any | undefined> {
@@ -56,9 +54,7 @@ export class TasksService  implements OnInit{
        'x-token' : this.getToken().toString(),
      });
      return this.http.put<any>(environment.baseUrl+'/user/task/full/'+task.id,task,{headers}).pipe(
-       catchError((error) =>{
-         return of(undefined)
-       })
+      
      )
    }
   insertTask(task:Task): Observable<any | undefined> {
@@ -67,19 +63,15 @@ export class TasksService  implements OnInit{
        'x-token' : this.getToken().toString(),
      });
      return this.http.post<any>(this.baseUrl,task,{headers}).pipe(
-       catchError((error) =>{
-         return of(undefined)
-       })
+     
      )
    }
-  deleteTask(task:Task): Observable<any | undefined> {
+  deleteTask(task:Task): Observable<any | boolean> {
      const headers = new HttpHeaders({
        'x-token' : this.getToken().toString(),
      });
      return this.http.delete<any>(this.baseUrl+'/'+task.id,{headers}).pipe(
-       catchError((error) =>{
-         return of(undefined)
-       })
+      
      )
    }
 

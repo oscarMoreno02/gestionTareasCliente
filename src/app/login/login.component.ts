@@ -4,6 +4,7 @@ import { CheckloginService } from '../services/checklogin.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { TmplAstRecursiveVisitor } from '@angular/compiler';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,7 @@ export class LoginComponent {
     this.login.checkLogin(this.email, this.password).subscribe({
       next: (token: any | undefined) => {
         sessionStorage.setItem('token',token.token);
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home'])
       },
       error: (err) => {
         console.log(err);

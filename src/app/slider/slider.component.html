@@ -1,3 +1,6 @@
-<mat-slider min="0" max="100000" step="1000" showTickMarks discrete [displayWith]="formatLabel">
-  <input matSliderThumb>
-</mat-slider>
+<div class="card flex justify-content-center">
+  <div style="width: 100px;">
+    <input style="width: 30px;margin-bottom: 10px;" disabled="" type="text" pInputText [(ngModel)]="numero" class="w-full"/>
+    <p-slider (onChange)="cambio()" [(ngModel)]="numero" class="w-full"></p-slider>
+  </div>
+</div>

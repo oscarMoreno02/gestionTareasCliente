@@ -17,4 +17,5 @@ export const routes: Routes = [
     {path: 'new/task', component: NewTaskComponent},
     {path: 'ranking', component: RankingComponent},
     {path: 'user/task', component: UserTaskComponent},
+    {path: '**', component: UserTaskComponent},
 ]

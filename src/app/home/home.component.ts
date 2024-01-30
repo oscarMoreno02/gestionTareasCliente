@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CabeceraComponent } from '../cabecera/cabecera.component';
 import { TasksComponent } from '../tasks/tasks.component';
 import { Router, RouterLink } from '@angular/router';
@@ -7,6 +7,7 @@ import {Subscription } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { SpinnerService } from '../services/spinner.service';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,6 @@ export class HomeComponent implements OnInit {
   roles=['']
   uid=0
   contador=0
-
   constructor(private taskService: TasksService, private router: Router,private authservice:AuthService) { }
   
   ngOnInit(): void {
@@ -101,6 +101,6 @@ if(this.tipoTabla==0){
       }
     });
   }
-
 }
+
 }
